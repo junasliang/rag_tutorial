@@ -18,7 +18,7 @@ if __name__ == "__main__":
 
     llm = OpenAI()
 
-    code_promt = PromptTemplate(
+    code_prompt = PromptTemplate(
         input_variables=["language", "task"],
         template="Write a very short {language} function that will {task}",
     )
@@ -30,13 +30,13 @@ if __name__ == "__main__":
 
     code_chain = LLMChain(
         llm = llm,
-        prompt = code_promt,
+        prompt = code_prompt,
         output_key = "code" 
     )
 
     test_chain = LLMChain(
         llm = llm,
-        promt = test_promt,
+        prompt = test_promt,
         output_key = "test"
     )
 
