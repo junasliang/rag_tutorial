@@ -1,10 +1,10 @@
 # old api version
-from langchain_community.llms import OpenAI
-from langchain.prompts import PromptTemplate
-from langchain.chains import LLMChain, SequentialChain
-
 import argparse
+
 from dotenv import load_dotenv
+from langchain.chains import LLMChain, SequentialChain
+from langchain.prompts import PromptTemplate
+from langchain_community.llms import OpenAI
 
 if __name__ == "__main__":
     # arg parsers
@@ -25,30 +25,19 @@ if __name__ == "__main__":
 
     test_promt = PromptTemplate(
         input_variables=["language", "task"],
-        template="Write a test for the following {language} code:\n{code}"
+        template="Write a test for the following {language} code:\n{code}",
     )
 
-    code_chain = LLMChain(
-        llm = llm,
-        prompt = code_prompt,
-        output_key = "code" 
-    )
+    code_chain = LLMChain(llm=llm, prompt=code_prompt, output_key="code")
 
-    test_chain = LLMChain(
-        llm = llm,
-        prompt = test_promt,
-        output_key = "test"
-    )
+    test_chain = LLMChain(llm=llm, prompt=test_promt, output_key="test")
 
     chain = SequentialChain(
-        chains = [code_chain, test_chain],
-        input_variables = ["task", "language"],
-        output_variables = ["test", "code"]
+        chains=[code_chain, test_chain],
+        input_variables=["task", "language"],
+        output_variables=["test", "code"],
     )
 
-    res = chain({
-        "language": args.language,
-        "task": args.task
-    })
+    res = chain({"language": args.language, "task": args.task})
     print(res["code"])
     print(res["test"])

@@ -1,8 +1,8 @@
+from dotenv import load_dotenv
 from langchain.document_loaders import TextLoader
 from langchain.text_splitter import CharacterTextSplitter
-from langchain_openai import OpenAIEmbeddings
 from langchain.vectorstores.chroma import Chroma
-from dotenv import load_dotenv
+from langchain_openai import OpenAIEmbeddings
 
 if __name__ == "__main__":
     # load api key
@@ -21,9 +21,7 @@ if __name__ == "__main__":
 
     # load fact txt
     loader = TextLoader("facts.txt")
-    docs = loader.load_and_split(
-        text_splitter=text_splitter
-    )
+    docs = loader.load_and_split(text_splitter=text_splitter)
 
     # reaching openai tokens
     # every single time you run, you duplicate once
@@ -36,7 +34,7 @@ if __name__ == "__main__":
     results = db.similarity_search_with_score(
         "What is an interesting fact about english language?",
         k=2,
-        )
+    )
 
     for result in results:
         print("\n")
