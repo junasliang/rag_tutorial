@@ -17,7 +17,7 @@ chat = ChatOpenAI()
 prompt = ChatPromptTemplate(
     messages=[
         HumanMessagePromptTemplate.from_template("{input}"),
-        MessagesPlaceholder(variable_name="agent_scratchpad")
+        MessagesPlaceholder(variable_name="agent_scratchpad") #simplified form of memory
     ]
 )
 
