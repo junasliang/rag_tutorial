@@ -1,5 +1,4 @@
 import sqlite3
-from typing import List
 
 from langchain.tools import Tool
 from pydantic.v1 import BaseModel
@@ -48,7 +47,7 @@ def describe_tables(tables_names):
 
 
 class DescribeTablesArgsSchema(BaseModel):
-    tables_names: List[str]
+    tables_names: list[str]
 
 
 describe_tables_tool = Tool.from_function(

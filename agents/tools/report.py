@@ -1,9 +1,11 @@
+from pathlib import Path
+
 from langchain.tools import StructuredTool
 from pydantic.v1 import BaseModel
 
 
 def write_report(filename, html):
-    with open(filename, "w") as f:
+    with Path(filename).open("w") as f:
         f.write(html)
 
 
