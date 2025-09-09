@@ -1,13 +1,16 @@
 from langchain.tools import StructuredTool
 from pydantic.v1 import BaseModel
 
+
 def write_report(filename, html):
-    with open(filename, 'w') as f:
+    with open(filename, "w") as f:
         f.write(html)
+
 
 class WriteReportArgsSchema(BaseModel):
     filename: str
     html: str
+
 
 # use structured tool when multiple input needed
 write_report_tool = StructuredTool.from_function(
