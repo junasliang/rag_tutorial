@@ -1,4 +1,5 @@
 from dotenv import load_dotenv
+from handler.chat_model_start_handler import ChatModelStartHandler
 from langchain.agents import AgentExecutor, OpenAIFunctionsAgent
 from langchain.memory import ConversationBufferMemory
 from langchain.prompts import (
@@ -12,7 +13,8 @@ from tools.sql import describe_tables_tool, list_tables, run_query_tool
 
 load_dotenv()
 
-chat = ChatOpenAI()
+handler = ChatModelStartHandler()
+chat = ChatOpenAI(callbacks=[handler])
 
 tables = list_tables()
 
@@ -51,14 +53,12 @@ agent = OpenAIFunctionsAgent(
 # (take agent and run until stop, fancy while loop)
 agent_executor = AgentExecutor(
     agent=agent,
-    verbose=True,
+    # verbose=True,
     tools=tools,
     memory=memory,
 )
 
-agent_executor(
-    "Summarize the top 5 most popular products. Write the results to a report file."
-)
+agent_executor("How many orders are there? Write the result to an html report")
 # agent_executor("How many users are in the database?")
 
 agent_executor("Repeat the exact same process for users.")
